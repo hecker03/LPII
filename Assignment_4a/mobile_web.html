@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Interactive Mobile Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"
+    />
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+      /* --- Visual Enhancements --- */
+      .ui-header {
+        background-color: #673ab7 !important;
+        color: white !important;
+        text-shadow: none !important;
+      }
+      .ui-footer {
+        background-color: #311b92 !important;
+        color: white !important;
+        text-shadow: none !important;
+      }
+
+      /* Vibrant page backgrounds */
+      #home {
+        background-color: #fafafa;
+      }
+      #about {
+        background-color: #e8eaf6;
+      }
+      #contact {
+        background-color: #f3e5f5;
+      }
+
+      /* Form spacing */
+      .ui-content {
+        padding: 2em !important;
+        text-align: center; /* center buttons */
+      }
+
+      /* ✅ Reduced button width */
+      .small-btn {
+        display: inline-block !important;
+        width: auto !important;
+        padding: 6px 14px !important;
+        font-size: 13px !important;
+        margin: 5px auto;
+      }
+
+      /* Success message hidden by default */
+      #success-msg {
+        display: none;
+        color: #2e7d32;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HOME PAGE -->
+    <div data-role="page" id="home">
+      <div data-role="header" data-position="fixed">
+        <h1>App 2026</h1>
+      </div>
+
+      <div role="main" class="ui-content">
+        <h2>Welcome Abroad</h2>
+        <p>Explore this interactive mobile interface.</p>
+
+        <a
+          href="#about"
+          class="ui-btn ui-btn-b ui-mini ui-corner-all ui-icon-navigation ui-btn-icon-left small-btn"
+        >
+          View About
+        </a>
+
+        <a
+          href="#contact"
+          class="ui-btn ui-btn-a ui-mini ui-corner-all ui-icon-mail ui-btn-icon-left small-btn"
+        >
+          Contact Us
+        </a>
+      </div>
+
+      <div data-role="footer" data-position="fixed">
+        <h4 class="dynamic-date">© 2026 Mobile Framework</h4>
+      </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div data-role="page" id="about">
+      <div data-role="header" data-position="fixed">
+        <a href="#home" data-icon="back" data-iconpos="notext">Back</a>
+        <h1>About</h1>
+      </div>
+
+      <div role="main" class="ui-content">
+        <h3>Our Technology</h3>
+        <p>
+          This site uses
+          <strong>jQuery</strong>.
+        </p>
+
+        <button
+          id="btn-color-change"
+          class="ui-btn ui-mini ui-btn-inline small-btn"
+        >
+          Change My Color
+        </button>
+
+        <hr />
+
+        <a href="#home" class="ui-btn ui-mini ui-corner-all small-btn">
+          Return Home
+        </a>
+      </div>
+
+      <div data-role="footer" data-position="fixed">
+        <h4 class="dynamic-date">About Section</h4>
+      </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div data-role="page" id="contact">
+      <div data-role="header" data-position="fixed">
+        <a href="#home" data-icon="home" data-iconpos="notext">Home</a>
+        <h1>Contact</h1>
+      </div>
+
+      <div role="main" class="ui-content">
+        <div id="success-msg">Message Sent Successfully!</div>
+
+        <form id="contactForm">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="John Doe"
+            data-mini="true"
+          />
+
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="john@example.com"
+            data-mini="true"
+          />
+
+          <label for="message">Message:</label>
+          <textarea id="message" data-mini="true"></textarea>
+
+          <button
+            type="submit"
+            class="ui-btn ui-btn-b ui-mini ui-corner-all small-btn"
+          >
+            Submit Feedback
+          </button>
+        </form>
+      </div>
+
+      <div data-role="footer" data-position="fixed">
+        <h4 class="dynamic-date">Contact Section</h4>
+      </div>
+    </div>
+
+    <script>
+      $(document).on("pagecreate", function () {
+        // Contact Form
+        $("#contactForm").on("submit", function (e) {
+          e.preventDefault();
+          const name = $("#name").val();
+
+          if (name === "") {
+            alert("Please enter at least a name!");
+          } else {
+            $(this).fadeOut(300, function () {
+              $("#success-msg")
+                .text("Thank you, " + name + "!")
+                .fadeIn();
+            });
+          }
+        });
+
+        // Color Change Button
+        $("#btn-color-change").on("click", function () {
+          const colors = ["#FF5722", "#E91E63", "#00BCD4", "#8BC34A"];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          $(this).css({
+            "background-color": randomColor,
+            color: "white",
+          });
+        });
+
+        // Footer Year
+        const currentYear = new Date().getFullYear();
+        $(".dynamic-date").append(" | " + currentYear);
+
+        // Tap log
+        $(".ui-btn").on("tap", function () {
+          console.log("User tapped a button!");
+        });
+      });
+    </script>
+  </body>
+</html>
